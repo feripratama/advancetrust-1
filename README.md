@@ -36,7 +36,6 @@ $ composer require feripratama/advancetrust
 ## 2. php artisan
 ``` bash
 $ php artisan vendor:publish --tag="laratrust"
-$ php artisan vendor:publish
 $ php artisan laratrust:setup
 $ php artisan laratrust:seeder
 $ php artisan migrate
@@ -45,8 +44,6 @@ $ php artisan db:seed --class=LaratrustSeeder
 $ php artisan serve
 ```
 
-## 3. Access /advancetrust
-### 127.0.0.1:8000/advancetrust
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
