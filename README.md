@@ -43,6 +43,13 @@ $ composer dump-autoload
 $ php artisan db:seed --class=LaratrustSeeder
 $ php artisan serve
 ```
+## Available artisan command
+``` bash
+php artisan advancetrust:add-route
+php artisan advancetrust:create-controller
+php artisan advancetrust:create-view
+php artisan advancetrust:version
+```
 
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
@@ -61,3 +68,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/:vendor/:package_name
 [link-author]: https://github.com/:author_username
 [link-contributors]: ../../contributors
+
