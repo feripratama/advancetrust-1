@@ -47,7 +47,7 @@ class PermissionController extends Controller
         $permission->description = $request->description;
         $permission->save();
 
-        return redirect()->to('/advancetrust/permission');
+        return redirect()->route('permission');
     }
 
     /**
