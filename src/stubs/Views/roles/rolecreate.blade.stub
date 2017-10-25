@@ -3,8 +3,7 @@
 @section('advancetrust_content')
   <a href="{{ route('role') }}">Back</a>   
 
-    <h3>Create new role</h3>
-  <form action="/advancetrust/role/store" method="post">
+    <h3>Create new role</h3>  
   {!! Form::open(array('route' => 'storeRole', 'method' => 'POST')) !!}
     {{ Form::label('name','Role name :') }}
     {{ Form::text('name') }}       

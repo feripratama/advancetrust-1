@@ -19,17 +19,18 @@ class advancetrustServiceProvider extends ServiceProvider
             require __DIR__.'/routes.php';
         }
 
-        $this->loadViewsFrom(base_path('resources/views/'), 'advancetrust');      
+        // $this->loadViewsFrom(base_path('resources/views/'), 'advancetrust');      
 
-        $this->publishes([
-            __DIR__.'/Controllers' => app_path('Http/Controllers/'),
-            //__DIR__.'/Views' => base_path('resources/views/advancetrust/')
-        ],'advancetrust');
+        // $this->publishes([
+        //     __DIR__.'/Controllers' => app_path('Http/Controllers/')
+        // ],'advancetrust');
         
 
         $this->commands('feripratama\advancetrust\Commands\AdvanceTrustCommand');
         $this->commands('feripratama\advancetrust\Commands\VersionCommand');
-        $this->commands('feripratama\advancetrust\Commands\CreateViewCommand');        
+        $this->commands('feripratama\advancetrust\Commands\CreateViewCommand'); 
+        $this->commands('feripratama\advancetrust\Commands\CreateControllerCommand'); 
+               
     }
     
 
@@ -44,6 +45,6 @@ class advancetrustServiceProvider extends ServiceProvider
         $this->app->make('feripratama\advancetrust\Controllers\RoleController');        
         $this->app->make('feripratama\advancetrust\Controllers\PermissionController');
 
-        $this->loadViewsFrom(__DIR__.'/Views', 'advancetrust');        
+        //$this->loadViewsFrom(__DIR__.'/Views', 'advancetrust');        
     }
 }

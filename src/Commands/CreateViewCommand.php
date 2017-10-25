@@ -95,8 +95,7 @@ class CreateViewCommand extends Command
     }
 
     public function handle()
-    {                       
-        //$this->info($this->replaceStub());
+    {                               
         File::makeDirectory(base_path('resources/views/advancetrust'));
         File::makeDirectory(base_path('resources/views/advancetrust/menu'));
         File::makeDirectory(base_path('resources/views/advancetrust/roles'));
@@ -104,7 +103,6 @@ class CreateViewCommand extends Command
         $this->createMenu();
         $this->roleViewCreate();
         $this->permissionViewCreate();
-        $this->info('Create view success');
-        //File::put(base_path('resources/views/').'test.html',$this->replaceStub());           
+        $this->info('Create view success');                  
     }
 }

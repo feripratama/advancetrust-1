@@ -44,12 +44,6 @@ class AdvanceTrustCommand extends Command
      *
      * @return mixed
      */
-    // protected function content()
-    // {
-    //     $content = File::get(__DIR__.'/../stubs/routes.stub');
-
-    //     return $content;
-    // }
 
     protected function content()
     {
