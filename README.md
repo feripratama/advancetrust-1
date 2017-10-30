@@ -1,4 +1,5 @@
 # Advance Trust
+This package insired and extend the [![santigarcor/laratrust](https://github.com/santigarcor/laratrust)](https://github.com/santigarcor/laratrust).
 
 [![Latest Stable Version](https://poser.pugx.org/feripratama/advancetrust/v/stable)](https://packagist.org/packages/feripratama/advancetrust)
 [![Software License][ico-license]](LICENSE.md)
