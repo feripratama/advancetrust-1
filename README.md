@@ -44,7 +44,7 @@ $ composer dump-autoload
 $ php artisan db:seed --class=LaratrustSeeder
 $ php artisan serve
 ```
-## Available artisan command
+## Please run this available command after finished installation
 ``` bash
 php artisan advancetrust:add-route
 php artisan advancetrust:create-controller
