@@ -36,6 +36,7 @@ $ composer require feripratama/advancetrust
 ```
 ## 2. php artisan
 ``` bash
+$ php artisan vendor:publish --tag="laratrust"
 $ php artisan laratrust:setup
 $ php artisan laratrust:seeder
 $ php artisan migrate
