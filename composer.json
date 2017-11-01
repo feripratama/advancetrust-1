@@ -46,11 +46,11 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.0-vue"
+            "dev-master": "1.0-dev"
         }
     },
     "config": {
         "sort-packages": true
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
