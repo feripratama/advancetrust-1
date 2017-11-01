@@ -9,7 +9,7 @@ Via composer
 ``` bash
 $ composer require feripratama/advancetrust
 ```
-## 1. In your config/app.php add : 
+## 1. In your config/app.php add for laravel 5.4 only: 
 
 ``` php
 'providers' => array(
