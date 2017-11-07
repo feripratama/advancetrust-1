@@ -4,6 +4,10 @@ This package inspired and extend the [![santigarcor/laratrust](https://github.co
 [![Latest Stable Version](https://poser.pugx.org/feripratama/advancetrust/v/stable)](https://packagist.org/packages/feripratama/advancetrust)
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads](https://poser.pugx.org/feripratama/advancetrust/downloads)](https://packagist.org/packages/feripratama/advancetrust)
+
+## TODO:
+- patch dahulu code yang mengandung feripratama menjadi bantenprov
+
 ## Install
 Via composer
 ``` bash
