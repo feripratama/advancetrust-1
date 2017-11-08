@@ -1,7 +1,7 @@
 {
     "name": "bantenprov/advancetrust",
     "type": "library",
-    "description": "Advance trust",
+    "description": "Laravel package untuk mengolah role / hak akses pengguna aplikasi",
     "keywords": [
         "bantenprov",
         "advancetrust",
