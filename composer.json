@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "bantenprov\\advancetrust\\": "src"
+            "Bantenprov\\Advancetrust\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "bantenprov\\advancetrust\\": "tests"
+            "Bantenprov\\Advancetrust\\": "tests"
         }
     },
     "scripts": {

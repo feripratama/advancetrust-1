@@ -21,7 +21,7 @@ $ composer require feripratama/advancetrust
     App\Providers\EventServiceProvider::class,
     App\Providers\RouteServiceProvider::class,
     ...
-    feripratama\advancetrust\advancetrustServiceProvider::class,
+    Bantenprov\Advancetrust\advancetrustServiceProvider::class,
     Laratrust\LaratrustServiceProvider::class,
     Collective\Html\HtmlServiceProvider::class,
     'That0n3guy\Transliteration\TransliterationServiceProvider',

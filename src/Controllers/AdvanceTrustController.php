@@ -1,6 +1,6 @@
 <?php
 
-namespace feripratama\advancetrust\Controllers;
+namespace Bantenprov\Advancetrust\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

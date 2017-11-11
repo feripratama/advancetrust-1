@@ -1,6 +1,6 @@
 <?php
 
-namespace feripratama\advancetrust;
+namespace Bantenprov\Advancetrust;
 
 use Illuminate\Support\ServiceProvider;
 use File;
@@ -26,10 +26,10 @@ class advancetrustServiceProvider extends ServiceProvider
         // ],'advancetrust');
         
 
-        $this->commands('feripratama\advancetrust\Commands\AdvanceTrustCommand');
-        $this->commands('feripratama\advancetrust\Commands\VersionCommand');
-        $this->commands('feripratama\advancetrust\Commands\CreateViewCommand'); 
-        $this->commands('feripratama\advancetrust\Commands\CreateControllerCommand'); 
+        $this->commands('Bantenprov\Advancetrust\Commands\AdvanceTrustCommand');
+        $this->commands('Bantenprov\Advancetrust\Commands\VersionCommand');
+        $this->commands('Bantenprov\Advancetrust\Commands\CreateViewCommand'); 
+        $this->commands('Bantenprov\Advancetrust\Commands\CreateControllerCommand'); 
                
     }
     
@@ -41,9 +41,9 @@ class advancetrustServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('feripratama\advancetrust\Controllers\AdvanceTrustController');
-        $this->app->make('feripratama\advancetrust\Controllers\RoleController');        
-        $this->app->make('feripratama\advancetrust\Controllers\PermissionController');
+        $this->app->make('Bantenprov\Advancetrust\Controllers\AdvanceTrustController');
+        $this->app->make('Bantenprov\Advancetrust\Controllers\RoleController');        
+        $this->app->make('Bantenprov\Advancetrust\Controllers\PermissionController');
 
         //$this->loadViewsFrom(__DIR__.'/Views', 'advancetrust');        
     }

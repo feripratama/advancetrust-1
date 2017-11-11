@@ -1,6 +1,6 @@
 <?php
 
-namespace feripratama\advancetrust;
+namespace Bantenprov\Advancetrust;
 
 
 use Illuminate\Support\Facades\Facade;
