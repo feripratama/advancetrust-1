@@ -11,7 +11,7 @@ This package inspired and extend the [![santigarcor/laratrust](https://github.co
 ## Install
 Via composer
 ``` bash
-$ composer require feripratama/advancetrust
+$ composer require bantenprov/advancetrust
 ```
 ## 1. In your config/app.php add for laravel <= 5.4 only: 
 
