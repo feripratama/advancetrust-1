@@ -9,18 +9,18 @@ This package inspired and extend the [![santigarcor/laratrust](https://github.co
 - patch dahulu code yang mengandung feripratama menjadi bantenprov
 
 ## Install
-Advancetrust untuk vue js :
-Via composer
-``` bash
-$ composer require bantenprov/advancetrust "1.0.2"
-```
-
 
 Advancetrust untuk laravel :
 Via composer
 ``` bash
 $ composer require bantenprov/advancetrust "1.0.1"
 ```
+
+Advancetrust untuk vue js :
+Via composer
+``` bash
+$ composer require bantenprov/advancetrust "1.0.2"
+``` 
 
 ## 1. In your config/app.php add for laravel <= 5.4 only: 
 
