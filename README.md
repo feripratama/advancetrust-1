@@ -64,6 +64,10 @@ php artisan advancetrust:create-controller
 php artisan advancetrust:create-view
 php artisan advancetrust:version
 ```
+## Beri authentication agar dapat menjalankan package
+``` bash
+php artisan make:auth
+```
 
 ## Edit home.blade.php
 
@@ -83,7 +87,10 @@ php artisan advancetrust:version
                             {{ session('status') }}
                         </div>
                     @endif
-            -->     @yield('advancetrust_content')     <--
+                    {-- 
+                    add menu content here
+                    --}
+                    @yield('advancetrust_content')
                 </div>
             </div>
         </div>
