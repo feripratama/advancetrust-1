@@ -65,6 +65,33 @@ php artisan advancetrust:create-view
 php artisan advancetrust:version
 ```
 
+## Edit home.blade.php
+
+```html
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+
+                <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+            -->     @yield('advancetrust_content')     <--
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+```
+
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
