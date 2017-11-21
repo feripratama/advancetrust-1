@@ -64,7 +64,7 @@ php artisan advancetrust:create-controller
 php artisan advancetrust:create-view
 php artisan advancetrust:version
 ```
-## Beri authentication agar dapat menjalankan package
+## Add authentication to use the package
 ``` bash
 php artisan make:auth
 ```
@@ -87,9 +87,9 @@ php artisan make:auth
                             {{ session('status') }}
                         </div>
                     @endif
-                    {-- 
+                    {{-- 
                     add menu content here
-                    --}
+                    --}}
                     @yield('advancetrust_content')
                 </div>
             </div>
