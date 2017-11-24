@@ -5,6 +5,9 @@ This package inspired and extend the [![santigarcor/laratrust](https://github.co
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads](https://poser.pugx.org/feripratama/advancetrust/downloads)](https://packagist.org/packages/feripratama/advancetrust)
 
+## DEMO
+Demo for this package is available here [Role](http://role-01.dev.bantenprov.go.id/)
+
 ## TODO:
 - patch dahulu code yang mengandung feripratama menjadi bantenprov
 
