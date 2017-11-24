@@ -1,9 +1,9 @@
 # Advance Trust
 This package inspired and extend the [![santigarcor/laratrust](https://github.com/santigarcor/laratrust)](https://github.com/santigarcor/laratrust).
 
-[![Latest Stable Version](https://poser.pugx.org/feripratama/advancetrust/v/stable)](https://packagist.org/packages/feripratama/advancetrust)
+[![Latest Stable Version](https://poser.pugx.org/bantenprov//advancetrust/v/stable)](https://packagist.org/packages/bantenprov//advancetrust)
 [![Software License][ico-license]](LICENSE.md)
-[![Total Downloads](https://poser.pugx.org/feripratama/advancetrust/downloads)](https://packagist.org/packages/feripratama/advancetrust)
+[![Total Downloads](https://poser.pugx.org/bantenprov//advancetrust/downloads)](https://packagist.org/packages/bantenprov//advancetrust)
 
 ## DEMO
 Demo for this package is available here [Role](http://role-01.dev.bantenprov.go.id/)
