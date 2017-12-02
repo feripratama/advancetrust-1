@@ -1,6 +1,6 @@
 <?php
 
-namespace feripratama\advancetrust\Commands;
+namespace Bantenprov\Advancetrust\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;

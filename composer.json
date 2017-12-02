@@ -1,20 +1,19 @@
 {
-    "name": "feripratama/advancetrust",
+    "name": "bantenprov/advancetrust",
     "type": "library",
     "description": "Advance trust",
     "keywords": [
-        "feripratama",
+        "batenprov",
         "advancetrust",
         "Role Management",
         "Permission"
     ],
-    "homepage": "https://github.com/feripratama/advancetrust",
+    "homepage": "https://github.com/bantenprov/advancetrust",
     "license": "MIT",
     "authors": [
         {
-            "name": "Feri pratama",
-            "email": "eroorsys@gmail.com",
-            "homepage": "http://feripratama.id.vg",
+            "name": "bantenprov",
+            "email": "dev.bantenprov@gmail.com",
             "role": "Developer"
         }
     ],
@@ -31,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "feripratama\\advancetrust\\": "src"
+            "Bantenprov\\Advancetrust\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "feripratama\\advancetrust\\": "tests"
+            "Bantenprov\\Advancetrust\\": "tests"
         }
     },
     "scripts": {
