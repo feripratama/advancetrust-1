@@ -4,19 +4,13 @@ Route::group(['prefix' => '[%_prefix%]','middleware' => '[%_middleware%]'],funct
 
     Route::get('advancetrust/role','RoleController@index')->name('role');
 
-    Route::get('advancetrust/role/create','RoleController@create')->name('role_create');
-
     Route::post('advancetrust/role/store','RoleController@store')->name('storeRole');
 
-    Route::get('advancetrust/role/{id}/delete','RoleController@destroy')->name('role_destroy');
-
-    Route::get('advancetrust/role/{id}/edit','RoleController@edit')->name('role_edit');
+    Route::get('advancetrust/role/{id}/destroy','RoleController@destroy')->name('role_destroy');
 
     Route::get('advancetrust/role/{id}/show','RoleController@show')->name('role_show');
 
-    Route::post('advancetrust/role/{id}/update','RoleController@update')->name('updateRole');
-
-    Route::get('advancetrust/role/{id}/add_permission','RoleController@addPermission')->name('role_add_permission');
+    Route::put('advancetrust/role/{id}/update','RoleController@update')->name('updateRole');
 
     Route::post('advancetrust/role/{id}/store_add_permission','RoleController@storePermission')->name('storeRolePermission');
 
@@ -24,16 +18,12 @@ Route::group(['prefix' => '[%_prefix%]','middleware' => '[%_middleware%]'],funct
 
     Route::get('advancetrust/permission','PermissionController@index')->name('permission');
 
-    Route::get('advancetrust/permission/create','PermissionController@create')->name('permission_create');
-
     Route::post('advancetrust/permission/store','PermissionController@store')->name('storePermission');
 
-    Route::get('advancetrust/permission/{id}/delete','PermissionController@destroy')->name('permission_destroy');
-
-    Route::get('advancetrust/permission/{id}/edit','PermissionController@edit')->name('permission_edit');
+    Route::get('advancetrust/permission/{id}/destroy','PermissionController@destroy')->name('permission_destroy');
 
     Route::get('advancetrust/permission/{id}/show','PermissionController@show')->name('permission_show');
 
-    Route::post('advancetrust/permission/{id}/update','PermissionController@update')->name('updatePermission');
+    Route::put('advancetrust/permission/{id}/update','PermissionController@update')->name('updatePermission');
 
 });
