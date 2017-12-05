@@ -1,9 +1,13 @@
 {
     "name": "bantenprov/advancetrust",
     "type": "library",
-    "description": "Advance trust",
+    "description": "Laravel package untuk mengolah role / hak akses pengguna aplikasi",
     "keywords": [
+<<<<<<< HEAD
         "batenprov",
+=======
+        "bantenprov",
+>>>>>>> master
         "advancetrust",
         "Role Management",
         "Permission"
@@ -13,7 +17,12 @@
     "authors": [
         {
             "name": "bantenprov",
+<<<<<<< HEAD
             "email": "dev.bantenprov@gmail.com",
+=======
+            "email": "developer.bantenprov@gmail.com",
+            "homepage": "http://bantenprov.go.id",
+>>>>>>> master
             "role": "Developer"
         }
     ],

@@ -40,7 +40,7 @@ class VersionCommand extends Command
     {        
         $this->info('Advance trust.');
         $this->info('=================');
-        $this->info('Author : Feri pratama');
+        $this->info('Author : Bantenprov');
         $this->info('Version : 1.0.0');       
         $this->info('Support Laravel > 5.4.* ');
         $this->info('=================');

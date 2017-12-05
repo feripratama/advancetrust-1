@@ -1,14 +1,30 @@
 # Advance Trust
 This package inspired and extend the [![santigarcor/laratrust](https://github.com/santigarcor/laratrust)](https://github.com/santigarcor/laratrust).
 
-[![Latest Stable Version](https://poser.pugx.org/feripratama/advancetrust/v/stable)](https://packagist.org/packages/feripratama/advancetrust)
+[![Latest Stable Version](https://poser.pugx.org/bantenprov//advancetrust/v/stable)](https://packagist.org/packages/bantenprov//advancetrust)
 [![Software License][ico-license]](LICENSE.md)
-[![Total Downloads](https://poser.pugx.org/feripratama/advancetrust/downloads)](https://packagist.org/packages/feripratama/advancetrust)
+[![Total Downloads](https://poser.pugx.org/bantenprov//advancetrust/downloads)](https://packagist.org/packages/bantenprov//advancetrust)
+
+## DEMO
+Demo for this package is available here [Role](http://role-01.dev.bantenprov.go.id/)
+
+## TODO:
+- patch dahulu code yang mengandung feripratama menjadi bantenprov
+
 ## Install
+
+Advancetrust untuk laravel :
 Via composer
 ``` bash
-$ composer require feripratama/advancetrust
+$ composer require bantenprov/advancetrust "1.0.1"
 ```
+
+Advancetrust untuk vue js :
+Via composer
+``` bash
+$ composer require bantenprov/advancetrust "1.0.2"
+``` 
+
 ## 1. In your config/app.php add for laravel <= 5.4 only: 
 
 ``` php
@@ -17,7 +33,7 @@ $ composer require feripratama/advancetrust
     App\Providers\EventServiceProvider::class,
     App\Providers\RouteServiceProvider::class,
     ...
-    feripratama\advancetrust\advancetrustServiceProvider::class,
+    Bantenprov\Advancetrust\advancetrustServiceProvider::class,
     Laratrust\LaratrustServiceProvider::class,
     Collective\Html\HtmlServiceProvider::class,
     'That0n3guy\Transliteration\TransliterationServiceProvider',
@@ -50,6 +66,40 @@ php artisan advancetrust:add-route
 php artisan advancetrust:create-controller
 php artisan advancetrust:create-view
 php artisan advancetrust:version
+```
+## Add authentication to use the package
+``` bash
+php artisan make:auth
+```
+
+## Edit home.blade.php
+
+```html
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+
+                <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    {{-- 
+                    add menu content here
+                    --}}
+                    @yield('advancetrust_content')
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 ```
 
 
