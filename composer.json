@@ -3,11 +3,7 @@
     "type": "library",
     "description": "Laravel package untuk mengolah role / hak akses pengguna aplikasi",
     "keywords": [
-<<<<<<< HEAD
-        "batenprov",
-=======
         "bantenprov",
->>>>>>> master
         "advancetrust",
         "Role Management",
         "Permission"
@@ -16,13 +12,9 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "bantenprov",
-<<<<<<< HEAD
-            "email": "dev.bantenprov@gmail.com",
-=======
+            "name": "bantenprov"
             "email": "developer.bantenprov@gmail.com",
             "homepage": "http://bantenprov.go.id",
->>>>>>> master
             "role": "Developer"
         }
     ],
