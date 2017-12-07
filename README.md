@@ -1,4 +1,6 @@
 # Advance Trust
+
+[![Join the chat at https://gitter.im/advancetrust/Lobby](https://badges.gitter.im/advancetrust/Lobby.svg)](https://gitter.im/advancetrust/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 This package inspired and extend the [![santigarcor/laratrust](https://github.com/santigarcor/laratrust)](https://github.com/santigarcor/laratrust).
 
 [![Latest Stable Version](https://poser.pugx.org/bantenprov//advancetrust/v/stable)](https://packagist.org/packages/bantenprov//advancetrust)
