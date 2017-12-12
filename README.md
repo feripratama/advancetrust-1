@@ -104,6 +104,12 @@ php artisan make:auth
 @endsection
 ```
 
+### [Server config]()
+
+Tambahkan pada .env anda parameter berikut
+```
+BANTENPROV_ROLEHOST=profil.bantenprov.go.id
+```
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
