@@ -8,20 +8,24 @@ This package inspired and extend the [![santigarcor/laratrust](https://github.co
 ## DEMO
 Demo for this package is available here [Role](http://role-01.dev.bantenprov.go.id/)
 
-## TODO:
-- patch dahulu code yang mengandung feripratama menjadi bantenprov
+## Version
+|Version|Description|
+|-------|-----------|
+|1.0.1|Laravel|
+|1.0.2|Laravel with VueJs|
+|1.0.3|Available API Rest|
 
 ## Install
 
-- Advancetrust for laravel :
+- **Advancetrust for laravel :**
 `composer require bantenprov/advancetrust "1.0.1"`
 
 
-- Advancetrust for laravel with vue js :
+- **Advancetrust for laravel with vue js :**
 `composer require bantenprov/advancetrust "1.0.2"`
 
 
-- Advancetrust **available API request** :
+- **Advancetrust available API request :**
 `composer require bantenprov/advancetrust "1.0.3"`
 
 ## 1. In your config/app.php add for laravel <= 5.4 only: 
@@ -49,6 +53,43 @@ Demo for this package is available here [Role](http://role-01.dev.bantenprov.go.
     'Form' => Collective\Html\FormFacade::class,
     'Html' => Collective\Html\HtmlFacade::class,
 ```
+### Before run artisan command : `$ php artisan migrate`
+Edit `database/migrations/2014_10_12_000000_create_users_table.php`
+``` php
+Schema::create('users', function (Blueprint $table) {
+    $table->increments('id');
+    $table->string('name');
+    $table->string('email')->unique();
+    // add api_token field
+    $table->string('api_token',191);
+    $table->string('password');
+    $table->rememberToken();
+    $table->timestamps();
+});
+```
+Edit `database/seeds/LaratrustSeeder.php`
+``` php
+$user = \App\User::create([
+    'name' => ucwords(str_replace('_', ' ', $key)),
+    'email' => $key.'@app.com',
+    'password' => bcrypt('password'),
+    // add api_token
+    'api_token' => str_random(60)
+]);
+```
+
+``` php
+// Create default user for each permission set
+$user = \App\User::create([
+    'name' => ucwords(str_replace('_', ' ', $key)),
+    'email' => $key.'@app.com',
+    'password' => bcrypt('password'),
+    'remember_token' => str_random(10),
+    // add api_token
+    'api_token' => str_random(60)
+]);
+```
+
 ## 2. php artisan
 ``` bash
 $ php artisan vendor:publish --tag="laratrust"
@@ -61,17 +102,17 @@ $ php artisan serve
 ```
 ## Please run this available command after finished installation
 ``` bash
-php artisan advancetrust:add-route
-php artisan advancetrust:create-controller
-php artisan advancetrust:create-view
-php artisan advancetrust:version
+$ php artisan advancetrust:add-route
+$ php artisan advancetrust:create-controller
+$ php artisan advancetrust:create-view
+$ php artisan advancetrust:version
 ```
 ## Add authentication to use the package
 ``` bash
-php artisan make:auth
+$ php artisan make:auth
 ```
 
-## Edit home.blade.php
+## Edit `resources/views/home.blade.php`
 
 ```html
 @extends('layouts.app')
@@ -118,4 +159,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/:vendor/:package_name
 [link-author]: https://github.com/:author_username
 [link-contributors]: ../../contributors
+
 
