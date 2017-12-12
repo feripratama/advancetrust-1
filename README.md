@@ -104,7 +104,7 @@ php artisan make:auth
 @endsection
 ```
 
-### [Server config]()
+### [Server config](https://github.com/bantenprov/advancetrust/blob/master/README.md#server-config)
 
 Tambahkan pada .env anda parameter berikut
 ```
