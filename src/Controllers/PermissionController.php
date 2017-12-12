@@ -1,0 +1,113 @@
+<?php
+
+namespace Bantenprov\Advancetrust\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use That0n3guy\Transliteration;
+use App\Role;
+use App\Permission;
+use App\User;
+
+class PermissionController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $permissions = Permission::all();        
+
+        return view('advancetrust::permissions.permission',compact('permissions'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('advancetrust::permissions.permissioncreate');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $name = \Transliteration::clean_filename($request->name);
+        $permission = new Permission();
+        $permission->name = strtolower(str_replace('_','-',$name));
+        $permission->display_name = $request->display_name;
+        $permission->description = $request->description;
+        $permission->save();
+
+        return redirect()->to('/advancetrust/permission');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $permission = Permission::find($id);
+        
+        return view('advancetrust::permissions.permissionshow',compact('permission'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $permission = Permission::find($id);
+
+        return view('advancetrust::permissions.permissionedit',compact('permission'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $permission = new Permission();
+
+        $permission->where('id',$id)->update([
+            'name' => strtolower(\Transliteration::clean_filename($request->name)),
+            'display_name' => $request->display_name,
+            'description' => $request->description,
+        ]);
+        
+        return redirect()->to('/advancetrust/permission');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Permission::find($id)->delete();
+
+        return redirect()->back();
+    }
+}
+
