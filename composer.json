@@ -1,0 +1,59 @@
+{
+    "name": "bantenprov/advancetrust",
+    "type": "library",
+    "description": "Laravel package untuk mengolah role / hak akses pengguna aplikasi",
+    "keywords": [
+        "bantenprov",
+        "advancetrust",
+        "Role Management",
+        "Permission"
+    ],
+    "homepage": "https://github.com/bantenprov/advancetrust",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bantenprov",
+            "email": "developer.bantenprov@gmail.com",
+            "homepage": "http://bantenprov.go.id",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5.1",
+        "php" : "~5.6|~7.0",
+        "bantenprov/laravel-api-manager": "^1.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "santigarcor/laratrust": "5.0.*",
+        "that0n3guy/transliteration": "2.0.x",
+        "laravelcollective/html": "^5.4.0"
+        
+    },
+    "require-dev": {
+        "phpunit/phpunit" : ">=5.4.3",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bantenprov\\Advancetrust\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bantenprov\\Advancetrust\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
