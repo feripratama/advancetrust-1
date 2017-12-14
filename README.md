@@ -3,9 +3,9 @@ This package inspired and extend the [![santigarcor/laratrust](https://github.co
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bantenprov/advancetrust/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/advancetrust/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/bantenprov/advancetrust/badges/build.png?b=master)](https://scrutinizer-ci.com/g/bantenprov/advancetrust/build-status/master)
-[![Latest Stable Version](https://poser.pugx.org/bantenprov//advancetrust/v/stable)](https://packagist.org/packages/bantenprov//advancetrust)
+[![Latest Stable Version](https://poser.pugx.org/bantenprov/advancetrust/v/stable)](https://packagist.org/packages/bantenprov/advancetrust)
 [![Software License][ico-license]](LICENSE.md)
-[![Total Downloads](https://poser.pugx.org/bantenprov//advancetrust/downloads)](https://packagist.org/packages/bantenprov//advancetrust)
+[![Total Downloads](https://poser.pugx.org/bantenprov/advancetrust/downloads)](https://packagist.org/packages/bantenprov/advancetrust)
 
 ## DEMO
 Demo for this package is available here [Role](http://role-01.dev.bantenprov.go.id/)
@@ -104,6 +104,19 @@ php artisan make:auth
 @endsection
 ```
 
+### [Server config](https://github.com/bantenprov/advancetrust/blob/master/README.md#server-config)
+
+Tambahkan pada .env anda parameter berikut
+1. Host yang digunakan sebagai role controller sebagai eksekutor penambahan role
+```
+BANTENPROV_ROLEHOST=rolehost.domain.tld
+```
+setting ini harus digunakan pada semua site yang menggunakan advantrust.
+
+2. Host yang digunakan sebagai requestor penambahan role
+```
+BANTENPROV_DRIVERHOST=driverhost.domain.tld
+```
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
