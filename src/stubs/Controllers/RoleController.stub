@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use That0n3guy\Transliteration;
+use Validator;
 use App\Role;
 use App\Permission;
 use App\User;
@@ -20,7 +21,10 @@ class RoleController extends Controller
     {
         $roles = Role::all();        
 
-        return view('advancetrust.roles.role',compact('roles'));
+        return response()->json([
+            'roles' => $roles
+        ]);
+        //return view('advancetrust.roles.role',compact('roles'));
     }
 
     /**
@@ -41,13 +45,52 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        // $path = Request::path();
+
+        // $explode = explode('/',$path);
+
+
+        // $from = 'form';
+        // if(in_array('api',$explode)){
+        //     $from = 'api';
+        // }
+
+        // $via = $from;
+        // if($version != ''){
+        //     $via .= '-'.$version;
+        // }
+
+        // $rules = [
+        //     'name' => 'required',
+        //     'display_name' => 'required',
+        //     'description' => 'required'
+        // ];
+
+        // $validator = Validator::make($request->all(), $rules);
+
+        // if($validator->fails()){
+        //     return response()->json([
+        //         'message' => $validator->errors()->all(),
+        //         'title' => 'Error',
+        //         'type' => 'error',
+        //     ]); 
+        // }
+        
+
         $role = new Role();
         $role->name = strtolower(\Transliteration::clean_filename($request->name));
         $role->display_name = $request->display_name;
         $role->description = $request->description;
         $role->save();
 
-        return redirect()->route('role');
+
+
+        return response()->json([
+            'message' => 'Success',
+            'title' => 'Success',
+            'type' => 'success',
+        ]);
+        
     }
 
     /**
@@ -60,27 +103,10 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         
-        return view('advancetrust.roles.roleshow',compact('role'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function addPermission($id)
-    {
-        $role = Role::find($id);
-        $available_permissions = [0];
-        foreach($role->permissions as $role_permission){
-            $available_permissions[$role_permission->id] = $role_permission->id;          
-        }        
-
-        $permissions = Permission::all();        
-        
-        return view('advancetrust.roles.addpermission',compact('role','permissions','available_permissions'));
-    }
+        return response()->json([
+            'role' => $role
+        ]);        
+    }    
 
     /**
      * 
@@ -94,6 +120,20 @@ class RoleController extends Controller
         $role = new Role();        
         $role_permission = $role->where('id',$id)->first()->permissions;
 
+        $rules = [
+            'permission' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()){
+            return response()->json([
+                'message' => $validator->errors()->all(),
+                'title' => 'Error',
+                'type' => 'error',
+            ]); 
+        }
+
         foreach($role_permission as $detachPermission){            
             $role->where('id',$id)->first()->detachPermission($detachPermission->id);
         }
@@ -103,22 +143,15 @@ class RoleController extends Controller
             $role->where('id',$id)->first()->attachPermissions($request->permission);
         }
         
-            
-        return redirect()->back();
+        
+        return response()->json([
+            'message' => 'Success',
+            'title' => 'Success',
+            'type' => 'success',
+        ]);
+        
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $role = Role::find($id);
-
-        return view('advancetrust.roles.roleedit',compact('role'));
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -129,6 +162,26 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $role = new Role();        
+        $role_permission = $role->where('id',$id)->first()->permissions;
+
+        $rules = [
+            'name' => 'required',
+            'display_name' => 'required',
+            'description' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()){
+            return response()->json([
+                'message' => $validator->errors()->all(),
+                'title' => 'Error',
+                'type' => 'error',
+            ]); 
+        }
+
         $role = new Role();
 
         $role->where('id',$id)->update([
@@ -137,7 +190,11 @@ class RoleController extends Controller
             'description' => $request->description,
         ]);
         
-        return redirect()->route('role');
+        return response()->json([
+            'message' => 'Success',
+            'title' => 'Success',
+            'type' => 'success',
+        ]);
     }
 
     /**
@@ -148,8 +205,12 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::find($id)->delete();
+        Role::find($id)->delete();        
 
-        return redirect()->back();
+        return response()->json([
+            'message' => 'Success',
+            'title' => 'Success',
+            'type' => 'success',
+        ]);
     }
 }

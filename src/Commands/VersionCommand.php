@@ -3,7 +3,7 @@
 namespace Bantenprov\Advancetrust\Commands;
 
 use Illuminate\Console\Command;
-
+use File;
 class VersionCommand extends Command
 {
     /**
@@ -35,14 +35,21 @@ class VersionCommand extends Command
      *
      * @return mixed
      */    
-
+    protected function getComposerVal()
+    {
+      $composer = json_decode(File::get(base_path('composer.json')),true);
+      return $composer['require']['bantenprov/advancetrust'];
+    }
+  
     public function handle()
-    {        
+    {   
+        $version = $this->getComposerVal();      
         $this->info('Advance trust.');
         $this->info('=================');
-        $this->info('Author : Bantenprov');
-        $this->info('Version : 1.0.0');       
+        $this->info('Author : Bantenprov');       
         $this->info('Support Laravel > 5.4.* ');
+        $this->info('Version : '.$version);
         $this->info('=================');
     }
 }
+
