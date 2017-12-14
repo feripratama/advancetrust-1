@@ -1,0 +1,184 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use That0n3guy\Transliteration;
+use App\Role;
+use App\Permission;
+use App\User;
+use App\ApiManager;
+use File, Response;
+
+class PermissionApiController extends Controller
+{
+    
+    protected $client_available;
+
+    public function __construct()
+    {
+        $this->client_available = env('BANTENPROV_DRIVERHOST');
+    }
+
+    /**
+     * Check permission to store method.
+     *
+     * @return \Illuminate\Http\Response
+     * 
+     * todo : how to detect fake request from client
+     * 
+     */
+
+    protected function check($client_request, $client_available ,$secret_key)
+    {
+        $client_request = str_replace(['http://','https://'],['',''],$client_request);
+
+        $api_manager = ApiManager::where('api_keys','=',$secret_key)->where('client', '=', $client_request)->count();
+        
+
+        if($api_manager > 0 && $this->client_available == $client_available)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    protected function checkGet($client, $secret_key)
+    {
+        $client = str_replace(['http://','https://'],['',''],$client);
+        $api_manager = ApiManager::where('api_keys','=',$secret_key)->where('client', $client)->count();
+
+        if($api_manager > 0)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    public function index(Request $req)
+    {         
+        $secret_key = $req->header('secret_key');
+        $client = $req->header('client');
+
+        if($this->checkGet($client, $secret_key)){
+            return Response::json(['message' => 'permission denied']);
+        }else{
+            $permissions = Permission::all();
+            return Response::json([
+                                    'permissions' => $permissions
+                                    ]);
+        }
+ 
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $req)
+    {
+
+        $secret_key = $req->header('secret_key');
+        $client = $req->header('client');
+        
+        if($this->check($client, $client, $secret_key)){
+            return Response::json(['message' => 'permission denied']);
+        }else{
+            try{
+                $name = \Transliteration::clean_filename($req->name);
+                $permission = new Permission();
+                $permission->name = strtolower(str_replace('_','-',$name));
+                $permission->display_name = $req->display_name;
+                $permission->description = $req->description;
+                $permission->save();
+                return Response::json(['message' => 'Success add new data']);
+            }catch(\Exception $e){
+                return Response::json(['error' => 'Add new permission failed ']);
+            }
+        }             
+        
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id, Request $req)
+    {
+              
+        $secret_key = $req->header('secret_key');
+        $host = $req->header('client');
+
+        if($this->check($host, $secret_key)){
+            return Response::json(['message' => 'permission denied']);
+        }else{
+            try{
+                $permission = Permission::findOrFail($id);            
+                return Response::json(['permission' => $permission]);
+            }catch(\Exception $e){
+                return Response::json(['error' => 'Failed get permission']);
+            }
+        }
+        
+        
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        try{
+            $permission = Permission::findOrFail($id);            
+            return Response::json(['permission' => $permission]);
+        }catch(\Exception $e){
+            return Response::json(['error' => 'Failed get permission']);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $permission = new Permission();
+
+        $permission->where('id',$id)->update([
+            'name' => strtolower(\Transliteration::clean_filename($request->name)),
+            'display_name' => $request->display_name,
+            'description' => $request->description,
+        ]);
+        
+        return redirect()->route('permission');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Permission::find($id)->delete();
+
+        return redirect()->back();
+    }
+}

@@ -30,17 +30,19 @@ class VersionCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */    
+       
     protected function getComposerVal()
     {
       $composer = json_decode(File::get(base_path('composer.json')),true);
       return $composer['require']['bantenprov/advancetrust'];
     }
   
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */ 
+
     public function handle()
     {   
         $version = $this->getComposerVal();      
@@ -52,4 +54,3 @@ class VersionCommand extends Command
         $this->info('=================');
     }
 }
-

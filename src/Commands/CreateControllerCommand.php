@@ -34,7 +34,14 @@ class CreateControllerCommand extends Command
         'controllers' => [
             'PermissionController.stub',
             'RoleController.stub'
-        ]                   
+        ]                
+    ];
+
+    protected $stubsApiController = [                  
+        'controllersapi' => [
+            'PermissionApiController.stub',
+            'RoleApiController.stub'
+        ]                
     ];
 
     
@@ -54,10 +61,21 @@ class CreateControllerCommand extends Command
         }
         
     }
+
+    protected function controllerApiCreate()
+    {        
+        
+        foreach($this->stubsApiController['controllersapi'] as $stub)
+        {
+            File::put(base_path('app/Http/Controllers/').str_replace('stub','php',$stub),File::get(__DIR__.'/../stubs/Controllers/api/'.$stub));            
+        }
+        
+    }
     
 
     public function handle()
-    {                               
+    {             
+        $this->controllerApiCreate();                  
         $this->controllerViewCreate();
         $this->info('Create controller success');                  
     }

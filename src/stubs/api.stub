@@ -1,0 +1,36 @@
+Route::group(['prefix' => 'v1'],function(){         
+
+    Route::get('advancetrust/role','RoleApiController@index')->name('role');
+
+    Route::get('advancetrust/role/create','RoleApiController@create')->name('role_create');
+
+    Route::post('advancetrust/role/store','RoleApiController@store')->name('storeRole');
+
+    Route::get('advancetrust/role/{id}/delete','RoleApiController@destroy')->name('role_destroy');
+
+    Route::get('advancetrust/role/{id}/edit','RoleApiController@edit')->name('role_edit');
+
+    Route::get('advancetrust/role/{id}/show','RoleApiController@show')->name('role_show');
+
+    Route::post('advancetrust/role/{id}/update','RoleApiController@update')->name('updateRole');
+
+    Route::get('advancetrust/role/{id}/add_permission','RoleApiController@addPermission')->name('role_add_permission');
+
+    Route::post('advancetrust/role/{id}/store_add_permission','RoleApiController@storePermission')->name('storeRolePermission');
+
+    // Permission :   
+
+    Route::get('advancetrust/permission','PermissionApiController@index')->name('permission');
+
+    Route::get('advancetrust/permission/create','PermissionApiController@create')->name('permission_create');
+
+    Route::post('advancetrust/permission/store','PermissionApiController@store')->name('storePermission');
+
+    Route::get('advancetrust/permission/{id}/delete','PermissionApiController@destroy')->name('permission_destroy');
+
+    Route::get('advancetrust/permission/{id}/edit','PermissionApiController@edit')->name('permission_edit');
+
+    Route::get('advancetrust/permission/{id}/show','PermissionApiController@show')->name('permission_show');
+
+    Route::post('advancetrust/permission/{id}/update','PermissionApiController@update')->name('updatePermission');
+});

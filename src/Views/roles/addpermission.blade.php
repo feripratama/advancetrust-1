@@ -1,4 +1,4 @@
-@extends('advancetrust::layouts.layout')
+@extends('advancetrust::layout.layout')
 
 @section('content')
   <a href="/advancetrust/role">Back</a>   

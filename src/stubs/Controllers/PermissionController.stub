@@ -7,7 +7,6 @@ use That0n3guy\Transliteration;
 use App\Role;
 use App\Permission;
 use App\User;
-use Validator;
 
 class PermissionController extends Controller
 {
@@ -19,12 +18,19 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::all();        
-        
-        return response()->json([
-            'permissions' => $permissions
-        ]);
+
+        return view('advancetrust.permissions.permission',compact('permissions'));
     }
-    
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('advancetrust.permissions.permissioncreate');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,22 +40,6 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'name' => 'required',
-            'display_name' => 'required',
-            'description' => 'required'
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if($validator->fails()){
-            return response()->json([
-                'message' => $validator->errors()->all(),
-                'title' => 'Error',
-                'type' => 'error',
-            ]); 
-        }
-
         $name = \Transliteration::clean_filename($request->name);
         $permission = new Permission();
         $permission->name = strtolower(str_replace('_','-',$name));
@@ -57,11 +47,7 @@ class PermissionController extends Controller
         $permission->description = $request->description;
         $permission->save();
 
-        return response()->json([
-                'message' => 'Success',
-                'title' => 'success',
-                'type' => 'success',
-            ]); 
+        return redirect()->route('permission');
     }
 
     /**
@@ -74,9 +60,20 @@ class PermissionController extends Controller
     {
         $permission = Permission::find($id);
         
-        return response()->json([
-            'permission' => $permission
-        ]); 
+        return view('advancetrust.permissions.permissionshow',compact('permission'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $permission = Permission::find($id);
+
+        return view('advancetrust.permissions.permissionedit',compact('permission'));
     }
 
     /**
@@ -88,22 +85,6 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'name' => 'required',
-            'display_name' => 'required',
-            'description' => 'required'
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if($validator->fails()){
-            return response()->json([
-                'message' => $validator->errors()->all(),
-                'title' => 'Error',
-                'type' => 'error',
-            ]); 
-        }
-
         $permission = new Permission();
 
         $permission->where('id',$id)->update([
@@ -111,14 +92,8 @@ class PermissionController extends Controller
             'display_name' => $request->display_name,
             'description' => $request->description,
         ]);
-
         
-        
-        return response()->json([
-                'message' => 'Success',
-                'title' => 'success',
-                'type' => 'success',
-            ]); 
+        return redirect()->route('permission');
     }
 
     /**
@@ -131,10 +106,6 @@ class PermissionController extends Controller
     {
         Permission::find($id)->delete();
 
-        return response()->json([
-            'message' => 'Success',
-            'title' => 'success',
-            'type' => 'success',
-        ]); 
+        return redirect()->back();
     }
 }
