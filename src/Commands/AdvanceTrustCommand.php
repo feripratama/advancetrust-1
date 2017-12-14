@@ -62,5 +62,6 @@ class AdvanceTrustCommand extends Command
     {               
         $this->info('Route add success'); 
         File::append(base_path('routes/web.php'),"\n".$this->content());        
+        File::append(base_path('routes/api.php'),"\n".File::get(__DIR__.'/../stubs/api.stub'));
     }
 }

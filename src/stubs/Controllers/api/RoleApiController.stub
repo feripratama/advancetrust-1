@@ -1,0 +1,261 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use That0n3guy\Transliteration;
+use App\Role;
+use App\Permission;
+use App\User;
+use App\ApiManager;
+
+use Response;
+
+class RoleApiController extends Controller
+{
+    
+    protected $available_host;
+
+    public function __construct()
+    {
+        $this->available_host = env('BANTENPROV_DRIVERHOST');
+    }
+
+    /**
+     * Check permission to store method.
+     *
+     * @return \Illuminate\Http\Response
+     * 
+     * todo : how to detect fake request from client
+     */
+
+    protected function check($client_request, $client_available ,$secret_key)
+    {
+        $client_request = str_replace(['http://','https://'],['',''], $client_request);
+        
+        $api_manager = ApiManager::where('api_keys','=',$secret_key)->where('client', '=', $client_request)->count();
+        
+        if($api_manager > 0 && $this->available_host == $client_available)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+
+
+    }
+
+    protected function checkGet($client, $secret_key)
+    {
+        $client = str_replace(['http://','https://'],['',''],$client);
+        $api_manager = ApiManager::where('api_keys','=',$secret_key)->where('client', $client)->count();
+
+        if($api_manager > 0)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $req)
+    {       
+        
+        $secret_key = $req->header('secret_key');
+        $client = $req->header('client');
+
+        if($this->checkGet($client, $secret_key)){
+            return Response::json(['message' => 'permission denied']);
+        }else{
+            try{
+                $roles = Role::all();            
+                return response()->json(['roles' => $roles]);
+            }catch(\Exception $e){
+                return response()->json(['error' => 'Failed get role']);
+            }
+        }
+
+        
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('advancetrust.roles.rolecreate');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        
+
+        $secret_key = $request->header('secret_key');
+        $client = $request->header('client');
+
+        if($this->check($client, $client, $secret_key)){
+            return Response::json(['message' => 'permission denied']);
+        }else{
+            try{
+                $role = new Role();
+                $role->name = strtolower(\Transliteration::clean_filename($request->name));
+                $role->display_name = $request->display_name;
+                $role->description = $request->description;
+                $role->save();
+                return response()->json(['message','Success add new data']);
+            }catch(\Exception $e){
+                return response()->json(['error','Add new permission failed ']);
+            }
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id, Request $request)
+    {
+
+        $secret_key = $request->header('secret_key');
+        $client = $request->header('client');
+
+        if($this->checkGet($client, $secret_key)){
+            return Response::json(['message' => 'permission denied']);
+        }else{
+            try{
+                $role = Role::find($id);            
+                return response()->json(['role' => $role]);
+            }catch(\Exception $e){
+                return response()->json(['error' => 'Failed get role']);
+            }
+        }
+
+        
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addPermission($id)
+    {
+
+        try{
+            $role = Role::find($id);
+            $available_permissions = [];
+            foreach($role->permissions as $role_permission){
+                $available_permissions[] = ['id' => $role_permission->id,'name' => $role_permission->name];
+            }        
+
+            $permissions = Permission::all();   
+                    
+            return response()->json([
+                                        'role' => $role,
+                                        'permissions' => $permissions,
+                                        'available_permissions' => $available_permissions
+                                    ]);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed get role']);
+        }
+    }
+
+    /**
+     * 
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function storePermission(Request $request,$id)
+    {      
+        
+        try{
+            $role = new Role();        
+            $role_permission = $role->where('id',$id)->first()->permissions;
+
+            foreach($role_permission as $detachPermission){            
+                $role->where('id',$id)->first()->detachPermission($detachPermission->id);
+            }
+
+            if(count($request->permission) > 0)
+            {
+                $role->where('id',$id)->first()->attachPermissions($request->permission);
+            }
+            return response()->json(['message','Success add new data']);
+        }catch(\Exception $e){
+            return response()->json(['error','Add new permission failed ']);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        try{
+            $role = Role::find($id);            
+            return response()->json(['role' => $role]);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed get role']);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try{
+            $role = new Role();
+
+            $role->where('id',$id)->update([
+                'name' => strtolower(\Transliteration::clean_filename($request->name)),
+                'display_name' => $request->display_name,
+                'description' => $request->description,
+            ]);            
+            return response()->json(['role' => $role]);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed update role']);
+        }
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Role::find($id)->delete();
+
+        return redirect()->back();
+    }
+}
