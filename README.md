@@ -108,8 +108,15 @@ php artisan make:auth
 ### [Server config](https://github.com/bantenprov/advancetrust/blob/master/README.md#server-config)
 
 Tambahkan pada .env anda parameter berikut
+1. Host yang digunakan sebagai role controller sebagai eksekutor penambahan role
 ```
-BANTENPROV_ROLEHOST=profil.bantenprov.go.id
+BANTENPROV_ROLEHOST=rolehost.domain.tld
+```
+setting ini harus digunakan pada semua site yang menggunakan advantrust.
+
+2. Host yang digunakan sebagai requestor penambahan role
+```
+BANTENPROV_DRIVERHOST=driverhost.domain.tld
 ```
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
