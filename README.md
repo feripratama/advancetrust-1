@@ -21,15 +21,7 @@ Demo for this package is available here [Role](http://role-01.dev.bantenprov.go.
 ## Install
 
 - **Advancetrust for laravel :**
-`composer require bantenprov/advancetrust "1.0.1"`
-
-
-- **Advancetrust for laravel with vue js :**
-`composer require bantenprov/advancetrust "1.0.2"`
-
-
-- **Advancetrust available API request :**
-`composer require bantenprov/advancetrust "1.0.3"`
+`composer require bantenprov/advancetrust:"1.2"`
 
 ## 1. In your config/app.php add for laravel <= 5.4 only: 
 

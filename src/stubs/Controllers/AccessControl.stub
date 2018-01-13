@@ -1,0 +1,128 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+
+use App\Role;
+use App\AccessControl;
+use App\User;
+
+
+class AccessController extends Controller
+{	
+
+	/*
+	* Manage access control
+	*
+	*/
+
+	protected $accessControlModel;
+	protected $roleModel;
+	protected $userModel;
+	protected $prefixRoute;
+
+	public function __construct()
+	{
+		$this->accessControlModel = new AccessControl;
+		$this->roleModel = new Role;
+		$this->userModel = new User;    	
+		$this->prefixRoute = '/task-management';
+	}
+
+
+
+	public function index(Request $request)
+	{  
+
+		$title = "Access Controller";
+
+		if(\Request::get('page') == ''){
+			$page = 1;
+		}else{
+			$page = \Request::get('page');
+		}
+
+		$getRoutes = \Route::getRoutes();
+
+		foreach ($getRoutes as $key => $route) {
+
+			if($route->getPrefix() == $this->prefixRoute){
+				$routes_array[] = ['url' => url('/').'/'.$route->uri(),'name' => $route->getName()];
+			}
+
+		}
+
+
+		if(\Request::get('search') != ""){
+			$routes = $this->customPage($this->array_find(\Request::get('search'),$routes_array),$page,$request);
+			return view('advancetrust.access-controller.index',compact('title','routes'));
+		}else{
+			$routes = $this->customPage($routes_array,$page,$request);
+			return view('advancetrust.access-controller.index',compact('title','routes'));
+		}
+
+	}    
+
+	public function show(Request $request)
+	{  
+		$title = "Access Controller";
+		$routes = \Route::getRoutes();
+		$roles = $this->roleModel->all();
+
+		foreach ($routes as $key => $route) {
+			if($route->getPrefix() == '/task-management'){
+				$routez[] = ['url' => url('/').'/'.$route->uri(),'name' => $route->getName()];
+			}
+		}
+		$route_display = (object) array_get($routez,$request->route);
+	   
+		return view('advancetrust.access-controller.show',compact('title','route_display','roles'));
+	}
+
+	public function store(Request $request)
+	{
+		$roles = $request->roles;
+
+		foreach ($roles as $key => $route) {
+			$this->accessControlModel->where('route_name','=',$request->route_name)->delete();
+		}
+
+		foreach ($roles as $key => $route) {    		
+
+			$this->accessControlModel->create([
+				'role_id' 		=> $route,
+				'route_name' 	=> $request->route_name
+			]);
+		}
+
+		return redirect()->back()->with('message','Success update role');
+	}	
+
+    // array find 
+	protected function array_find($needle, $haystack)
+	{
+		$example = $haystack;
+		$searchword = $needle;
+		$matches = array();
+		foreach($example as $k=>$v) {
+			if(preg_match("/$searchword/i", $v['name']) || preg_match("/$searchword/i", $v['url'])) {
+				$matches[$k] = $v;
+			}
+		}
+		return $matches;
+	}
+
+	// custom page from array
+	protected function customPage($array,$page,$request)
+	{
+		$perPage = 20;
+		$offset = ($page * $perPage) - $perPage;
+
+		return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page, ['path' => $request->url(), 'query' => $request->query()]);
+	}
+
+}

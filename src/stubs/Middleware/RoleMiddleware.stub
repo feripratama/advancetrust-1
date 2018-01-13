@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class RoleMiddleware
+{    
+
+	/* error message */
+	protected $errorMessage = 'permission denied';
+
+	/* prefix route */
+	protected $routePrefix  = 'taskManagementIndex';
+
+    /** 
+    *   @return bool
+    *
+    *   if route not register role return 
+    *   true | false
+    */
+    protected $returnTo     = true;
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+    	if($this->checkRole()){            
+    		return $next($request);
+    	}else{
+    		return redirect()
+    		->route($this->routePrefix)
+    		->withErrors($this->errorMessage);
+    	}
+    }
+
+
+    public function checkRole()
+    {       
+    	if($this->currentRole() != 0){
+    		return in_array($this->getMyRole()->id,$this->currentRole());
+    	}else{
+    		return $this->returnTo;
+    	}
+    }
+
+    // get my role
+    public function getMyRole()
+    {
+    	return \Auth::user()->roles->first();
+    }
+
+    // get curret role
+    public function currentRole()
+    {
+    	$current_route = \Request::route()->getName();
+    	$available = \App\AccessControl::where('route_name','=',$current_route)->get();
+    	
+    	if($available->count() > 0){
+    		foreach ($available as $value) {
+    			$availables[] = $value->role_id;
+    		}   
+    	}else{
+    		$availables = 0;
+    	}
+    	
+    	return $availables;
+    }
+}
